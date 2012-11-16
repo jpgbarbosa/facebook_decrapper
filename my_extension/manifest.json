@@ -1,0 +1,17 @@
+{
+    "name": "My app",
+    "background": { "scripts": ["background.js"] },
+    "version": "1.0",
+    "manifest_version": 2,
+    "description": "Do thing.",
+    "permissions": [
+        "tabs", "https://*/", "http://ajax.googleapis.com/"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["https://*/*"],
+            "js": ["jquery.min.js", "myapp.js"],
+            "run_at": "document_end"
+        }
+    ]
+}
