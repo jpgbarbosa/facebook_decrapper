@@ -1,3 +1,6 @@
+var text = '{"politica":{"semantics":["politico, governo, estado, politica"],"party":{"semantics":["partido","sindicato"],"objects":{"PS":{"semantics":["PS","partido socialista"],"people":{"objects":{"seguro":{"semantics":["antónio seguro","antónio josé seguro"]},"zorrinho":{"semantics":["vasco zorrinho"]},"ant_costa":{"semantics":["antónio costa"]}}}},"PSD":{"semantics":["PSD","partido social democrata"],"people":{"objects":{"pacos":{"semantics":["paços coelho"]},"relvas":{"semantics":["miguel relvas"]},"gaspar":{"semantics":["vitor gaspar"]}}}},"CDS":{"semantics":["CDS","CDS/PP","PP","CDS PP","partido popular"],"people":{"objects":{"portas":{"semantics":["paulo portas"]}}}},"PC":{"semantics":["PC","partido comunista","comunista","comuna"],"people":{"objects":{"jeronimo":{"semantics":["jeronimo de sousa"]}}}},"BE":{"semantics":["BE","bloco de esquerda","comunista","comuna"],"people":{"objects":{"louca":{"semantics":["francisco louça"]}}}}}}}}'
+var hash = JSON.parse(text);
+
 var dom = {};
 dom.query = jQuery.noConflict(true);
 
@@ -6,7 +9,7 @@ dom.query(".uiButtonConfirm").mousedown(function(){
         alert("Foste apanhado");
 });
 
-var keywords = ["Sabes","illness","Download", "Camionagem", "alivia", "Next", "photo", "sick", "1-0"]
+var keywords = ["comunista","paços coelho"]
 var classes  = [".userContent",".uiAttachmentTitle",".caption",".uiAttachmentDesc"]
 
 function myapp() {
