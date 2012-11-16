@@ -2,6 +2,7 @@
     "name": "My app",
     "background": { "scripts": ["background.js"] },
     "version": "1.0",
+    "icons": {"48":"icon_48.png","128":"icon_128.png"},
     "manifest_version": 2,
     "description": "Do thing.",
     "permissions": [
