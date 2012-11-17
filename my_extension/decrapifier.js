@@ -180,7 +180,7 @@ function deletePost(nodes){
             if(removeAcento(nodes[i].innerHTML).toUpperCase().indexOf(removeAcento(words[j]).toUpperCase()) != -1) {
                 nodes[i].style.display = 'none';
                 var temp = nodes[i].parentNode;
-                while(temp.className.indexOf("uiUnifiedStory uiStreamStory genericStreamStory") == -1){
+                while(temp.className && temp.className.indexOf("uiUnifiedStory uiStreamStory genericStreamStory") == -1){
                     temp.style.display = 'none';
                     temp = temp.parentNode;
                 }
