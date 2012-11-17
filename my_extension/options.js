@@ -4,8 +4,9 @@ dom.query = jQuery.noConflict(true);
 // Helper to fetch the arrays stored in Chrome
 function getLocalStorage(name) {
   var data = localStorage[name];
+  
   if (!data) { data = JSON.stringify([]); }
-  data = JSON.parse(data);
+
   return data;
 }
 
@@ -33,17 +34,10 @@ function select_page(id) {
 };
 
 // Comunicator with other pages
-chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-
-  console.log(request.cmd)
-  
-    if(request.cmd == "save") {
-        //localStorage[sender.tab.id] = request.data;
-        setLocalStorage(request.data.name, request.data.array)
-    }
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 
     if(request.cmd == "load") {
-        sendResponse(getLocalStorage(request.data.name));
+        sendResponse(getLocalStorage(request.data));
         ;
     }
 });

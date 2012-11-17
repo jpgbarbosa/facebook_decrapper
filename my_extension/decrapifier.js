@@ -4,16 +4,22 @@ var hash = JSON.parse(text);
 var dom = {};
 dom.query = jQuery.noConflict(true);
 
+var jacking_keywords = null;
+
 // Helper to fetch the arrays stored in Chrome
-function getLocalStorage(callback) {
-	chrome.extension.sendRequest({cmd: "load"}, function(data) {
-	    console.log("tab data:", data)
+function getLocalStorage(name,callback) {
 
-	    if (!data) { data = JSON.stringify([]); }
-  		
-  		data = JSON.parse(data);
+	chrome.extension.sendMessage({cmd: "load", data : "jacking_keywords"}, function(val) {
 
-  		callback(data)
+        var x = null;
+
+	    if (val == null || val == "undefined") { 
+            x =[] 
+        } else {
+            x = JSON.parse(val)
+        }
+
+  		callback(x)
 
 	});
 }
@@ -49,7 +55,8 @@ function create_popup() {
 				</div> \
 			</div> \
 		</div>');
-	dom.query('#button-close-jacking').click(function() {
+	
+    dom.query('#button-close-jacking').click(function() {
 		dom.query('input[value="Log out"]').trigger('click');
 	});
 }
@@ -57,23 +64,23 @@ function create_popup() {
 // Overtakes the action of submiting a post
 dom.query(".uiButtonConfirm").click(function(e){
 	var dubious = false;
-	
-	getLocalStorage(function(keywords) {
+    var status = dom.query(".mentionsTextarea").val();
 
-		console.log(keywords);
-		dom.query.each(keywords, function(index, value) {
-			if (dom.query(".mentionsTextarea").val().indexOf(value) != -1)
-				dubious = true;
-		});
-
-	    if(dubious) {
-	    	e.stopImmediatePropagation();
-	    	create_popup();
-	    }
+	dom.query.each(jacking_keywords, function(index, value) {
+		if (status.indexOf(value) != -1)
+			dubious = true;
 	});
-	
 
+    if(dubious) {
 
+        dom.query(".uiTextareaAutogrow.input.mentionsTextarea.textInput").val("");
+
+    	e.stopImmediatePropagation();
+    	create_popup();
+        return false;
+    }
+
+    return true;
 
 });
 
@@ -99,6 +106,22 @@ function getSemanticKeywords() {
     for(var i in keywords){
         recursive(hash["politica"], keywords[i], 0);        
     }
+}
+
+function getJackinKeyWords() {
+    chrome.extension.sendMessage({cmd: "load", data : "jacking_keywords"}, function(val) {
+
+        var x = null;
+
+        if (val == null || val == "undefined") { 
+            x =[] 
+        } else {
+            x = JSON.parse(val)
+        }
+
+        jacking_keywords = x ;
+
+    });
 }
 
 function recursive(node, keyword, all){
@@ -134,22 +157,23 @@ function myapp() {
 };
 
 function deletePost(nodes){
-    var words = keywords.concat(semantic_keywords); 
-    for(var i = 0; i < nodes.length; i++) {
-        for(var j = 0; j < words.length; j++) {
-            if(removeAcento(nodes[i].innerHTML).toUpperCase().indexOf(removeAcento(words[j]).toUpperCase()) != -1) {
-                nodes[i].style.display = 'none';
-                var temp = nodes[i].parentNode;
-                while(temp.className.indexOf("uiUnifiedStory uiStreamStory genericStreamStory") == -1){
-                    temp.style.display = 'none';
-                    temp = temp.parentNode;
-                }
-            }
-        }
-    }
+    // var words = keywords.concat(semantic_keywords); 
+    // for(var i = 0; i < nodes.length; i++) {
+    //     for(var j = 0; j < words.length; j++) {
+    //         if(removeAcento(nodes[i].innerHTML).toUpperCase().indexOf(removeAcento(words[j]).toUpperCase()) != -1) {
+    //             nodes[i].style.display = 'none';
+    //             var temp = nodes[i].parentNode;
+    //             while(temp.className.indexOf("uiUnifiedStory uiStreamStory genericStreamStory") == -1){
+    //                 temp.style.display = 'none';
+    //                 temp = temp.parentNode;
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 getSemanticKeywords();
+getJackinKeyWords();
 
 window.setInterval(function(){
   myapp();
