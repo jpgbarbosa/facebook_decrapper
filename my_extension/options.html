@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Facebook Decrapper options</title>
+        <meta name="description" content="">
+		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+		<meta name="HandheldFriendly" content="True">
+		<meta name="MobileOptimized" content="320">
+	
+		<!-- Favicon.ico placeholder -->
+		<link rel="shortcut icon" href="imgs/ink-favicon.ico">
+		
+		<!-- Apple icon placeholder -->
+		<link rel="apple-touch-icon-precomposed" href="imgs/touch-icon.57.png">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="imgs/touch-icon.72.png">
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="imgs/touch-icon.114.png">
+
+		<!-- Apple splash screen placeholder -->
+		<link rel="apple-touch-startup-image" href="imgs/splash.320x460.png" media="screen and (min-device-width: 200px) and (max-device-width: 320px) and (orientation:portrait)">
+		<link rel="apple-touch-startup-image" href="imgs/splash.768x1004.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+		<link rel="apple-touch-startup-image" href="imgs/splash.1024x748.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+
+		<!-- Stylesheets -->
+		<link rel="stylesheet" href="./css/ink.css">
+		
+		<!--[if IE]>
+			<link rel="stylesheet" href="./css/ink-ie.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<![endif]-->
+
+		<script src="jquery.min.js"></script>
+		<script src="options.js"></script>
+		
+	</head>
+	<body>
+   		
+		<!-- Add your site or application content here -->
+   
+		<header class="ink-container ink-for-l ink-for-m ink-for-s">
+			<div class="ink-vspace">
+				<h1 class="">Facebook Decrapifier options</h1>
+				<p>Change what to hide on your news feed and how to prevent Facebook jacking</p>
+			</div>
+		</header>
+
+		<nav class="ink-container ink-navigation">
+			<ul class="horizontal menu blue">
+				<li class="active">
+					<a href="#" id="block-list-tab">Block list</a>
+				</li>
+				<li>
+					<a href="#" id="jacking-tab">Facebook jacking</a>
+				</li>
+				<li>
+					<a href="#" id="about-tab">About</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="ink-container ink-vspace">
+
+			<div id="block-list">
+				<div class="ink-row">
+					<div class="ink-l25">&nbsp;</div>
+					<div class="ink-l50">
+						<form action="#" class="ink-form block">
+						  <fieldset>
+
+						    <legend>Block posts with these keywords</legend>
+						    <div class="control validation error">
+						        <div id="block-keywords">
+						        	<table id="block-table" class="ink-table ink-zebra">
+						        	</table>
+						        	<table width="100%">
+						        		<tr>
+						        			<td><input type="text" id="block-keyword"></td>
+						        			<td style="width: 60px"><a class="ink-button success" id="add-block">Add</a></td>
+						        		</tr>
+						        	</table>
+						      		<p class="tip space short">e.g.: Gangnam Style, Elections, #instagram, etc.</p>
+						        </div>
+						    </div>
+
+						  </fieldset>
+						</form>
+					</div>
+					<div class="ink-l25">&nbsp;</div>
+				</div>
+			</div>
+
+			<div id="jacking" style="display: none">
+				<div class="ink-row">
+					<div class="ink-l25">&nbsp;</div>
+					<div class="ink-l50">
+						<form action="#" class="ink-form block">
+						  <fieldset>
+
+						    <legend>Protect against these words or expressions</legend>
+						    <div class="control validation error">
+						        <div id="jacking-keywords">
+						        	<table id="jacking-table" class="ink-table ink-zebra">
+						        	</table>
+						        	<table width="100%">
+						        		<tr>
+						        			<td><input type="text" id="jacking-keyword"></td>
+						        			<td style="width: 60px"><a class="ink-button success" id="add-jacking">Add</a></td>
+						        		</tr>
+						        	</table>
+						      		<p class="tip space short">e.g.: Smelly, Jacking, I'm such a, etc.</p>
+						        </div>
+						    </div>
+
+						  </fieldset>
+						</form>
+					</div>
+					<div class="ink-l25">&nbsp;</div>
+				</div>
+			</div>
+
+			<div id="about" style="display: none">
+				<div class="ink-row">
+					<div class="ink-l10">&nbsp;</div>
+					<div class="ink-l80">
+						<h4>Facebook Decrapifier 0.1</h4>
+						<p>
+							Bored by political posts on your Facebook news feed? Couldn't care less about those reality shows everybody talks about? Tired of being a victim of Facebookjacking? Why not get rid of all that crap? This Google Chrome extension solves Facebook's most annoying problems that no one has ever tried to tackle before. It's not just an extension: it's a crap cleaner that will make you wonder how did you cope with all that crap before.
+						</p>
+						<h5>Developers</h5>
+						<div class="ink-l33" style="text-align: center">
+							<p><a href="https://codebits.eu/jbarbosa" target="_blank">
+								<img src="https://codebits.eu/avatars/4203662cf48eb22cd6029712bd8cb40c?s=200" />
+							</a></p>
+							<p><a href="https://codebits.eu/jbarbosa" target="_blank">João Barbosa</a></p>
+						</div>
+						<div class="ink-l33" style="text-align: center">
+							<p><a href="https://codebits.eu/ricardolopes" target="_blank">
+								<img src="https://codebits.eu/avatars/eb3b8d2313f131a97966a25767eabd8c?s=200" />
+							</a></p>
+							<p><a href="https://codebits.eu/ricardolopes" target="_blank">Ricardo Lopes</a></p>
+						</div>
+						<div class="ink-l33" style="text-align: center">
+							<p><a href="https://codebits.eu/rchicoria" target="_blank">
+								<img src="https://codebits.eu/avatars/cb2b725dbdfbc22533767cab94ea1dcd?s=200" />
+							</a></p>
+							<p><a href="https://codebits.eu/rchicoria" target="_blank">Rui Chicória</a></p>
+						</div>
+					</div>
+					<div class="ink-l10">&nbsp;</div>
+				</div>
+			</div>
+
+
+			<!--<h4>InK takes a diferent approach to a grid system to make it truly flexibe and responsive.</h4>
+			<p>Our </p>
+			<div class="ink-vspace">
+				<h4>You can divide your layout in halves...</h4>
+				<div class="ink-row">
+					<div class="ink-l50">
+						<div class="ink-gutter">
+							<p>Upon waking next morning about daylight, I found Queequeg's arm thrown over me in the most loving and affectionate manner. You had almost thought I had been his wife. The counterpane was of patchwork, full of odd little parti-coloured squares and triangles; and this arm of his tattooed all over with an interminable Cretan labyrinth of a figure, no two parts of which were of one precise shade&mdash;owing I suppose to his keeping his arm at sea unmethodically in sun and shade, his shirt sleeves irregularly rolled up at various times&mdash;this same arm of his, I say, looked for all the world like a strip of that same patchwork quilt.</p>
+						</div>
+					</div>
+					<div class="ink-l50">
+						<div class="ink-gutter">
+							<p>Upon waking next morning about daylight, I found Queequeg's arm thrown over me in the most loving and affectionate manner. You had almost thought I had been his wife. The counterpane was of patchwork, full of odd little parti-coloured squares and triangles; and this arm of his tattooed all over with an interminable Cretan labyrinth of a figure, no two parts of which were of one precise shade&mdash;owing I suppose to his keeping his arm at sea unmethodically in sun and shade, his shirt sleeves irregularly rolled up at various times&mdash;this same arm of his, I say, looked for all the world like a strip of that same patchwork quilt.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ink-vspace">
+				<h4>... thirds ...</h4>
+				<div class="ink-row">
+					<div class="ink-l33 ink-m50">
+						<div class="ink-gutter">
+							<p>Upon waking next morning about daylight, I found Queequeg's arm thrown over me in the most loving and affectionate manner. You had almost thought I had been his wife. The counterpane was of patchwork, full of odd little parti-coloured squares and triangles; and this arm of his tattooed all over with an interminable Cretan labyrinth of a figure, no two parts of which were of one precise shade&mdash;owing I suppose to his keeping his arm at sea unmethodically in sun and shade, his shirt sleeves irregularly rolled up at various times&mdash;this same arm of his, I say, looked for all the world like a strip of that same patchwork quilt.</p>
+						</div>
+					</div>
+					<div class="ink-l33 ink-m50">
+						<div class="ink-gutter">
+							<p>Upon waking next morning about daylight, I found Queequeg's arm thrown over me in the most loving and affectionate manner. You had almost thought I had been his wife. The counterpane was of patchwork, full of odd little parti-coloured squares and triangles; and this arm of his tattooed all over with an interminable Cretan labyrinth of a figure, no two parts of which were of one precise shade&mdash;owing I suppose to his keeping his arm at sea unmethodically in sun and shade, his shirt sleeves irregularly rolled up at various times&mdash;this same arm of his, I say, looked for all the world like a strip of that same patchwork quilt.</p>
+						</div>
+					</div>
+					<div class="ink-l33 ink-m100 ink-for-l ink-for-s">
+						<div class="ink-gutter">
+							<p>Upon waking next morning about daylight, I found Queequeg's arm thrown over me in the most loving and affectionate manner. You had almost thought I had been his wife. The counterpane was of patchwork, full of odd little parti-coloured squares and triangles; and this arm of his tattooed all over with an interminable Cretan labyrinth of a figure, no two parts of which were of one precise shade&mdash;owing I suppose to his keeping his arm at sea unmethodically in sun and shade, his shirt sleeves irregularly rolled up at various times&mdash;this same arm of his, I say, looked for all the world like a strip of that same patchwork quilt.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ink-vspace">
+				<h4>... fourths and more.</h4>
+				<div class="ink-row">
+					<div class="ink-l25 ink-m50">
+						<div class="ink-gutter">
+							<p>Upon waking next morning about daylight, I found Queequeg's arm thrown over me in the most loving and affectionate manner. You had almost thought I had been his wife. The counterpane was of patchwork, full of odd little parti-coloured squares and triangles; and this arm of his tattooed all over with an interminable Cretan labyrinth of a figure, no two parts of which were of one precise shade&mdash;owing I suppose to his keeping his arm at sea unmethodically in sun and shade, his shirt sleeves irregularly rolled up at various times&mdash;this same arm of his, I say, looked for all the world like a strip of that same patchwork quilt.</p>
+						</div>
+					</div>
+					<div class="ink-l25 ink-m50">
+						<div class="ink-gutter">
+							<p>Upon waking next morning about daylight, I found Queequeg's arm thrown over me in the most loving and affectionate manner. You had almost thought I had been his wife. The counterpane was of patchwork, full of odd little parti-coloured squares and triangles; and this arm of his tattooed all over with an interminable Cretan labyrinth of a figure, no two parts of which were of one precise shade&mdash;owing I suppose to his keeping his arm at sea unmethodically in sun and shade, his shirt sleeves irregularly rolled up at various times&mdash;this same arm of his, I say, looked for all the world like a strip of that same patchwork quilt.</p>
+						</div>
+					</div>
+					<div class="ink-l25 ink-m50">
+						<div class="ink-gutter">
+							<p>Upon waking next morning about daylight, I found Queequeg's arm thrown over me in the most loving and affectionate manner. You had almost thought I had been his wife. The counterpane was of patchwork, full of odd little parti-coloured squares and triangles; and this arm of his tattooed all over with an interminable Cretan labyrinth of a figure, no two parts of which were of one precise shade&mdash;owing I suppose to his keeping his arm at sea unmethodically in sun and shade, his shirt sleeves irregularly rolled up at various times&mdash;this same arm of his, I say, looked for all the world like a strip of that same patchwork quilt.</p>
+						</div>
+					</div>
+					<div class="ink-l25 ink-m50">
+						<div class="ink-gutter">
+							<p>Upon waking next morning about daylight, I found Queequeg's arm thrown over me in the most loving and affectionate manner. You had almost thought I had been his wife. The counterpane was of patchwork, full of odd little parti-coloured squares and triangles; and this arm of his tattooed all over with an interminable Cretan labyrinth of a figure, no two parts of which were of one precise shade&mdash;owing I suppose to his keeping his arm at sea unmethodically in sun and shade, his shirt sleeves irregularly rolled up at various times&mdash;this same arm of his, I say, looked for all the world like a strip of that same patchwork quilt.</p>
+						</div>
+					</div>
+				</div>
+			</div>-->			
+		</div>
+		
+		<footer>
+			<div class="ink-container">
+				<p class="copyright">
+					© 2012 All rights reverved. All of them.
+				</p>
+			</div>
+		</footer>
+		
+	</body>
+</html>

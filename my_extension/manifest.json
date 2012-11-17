@@ -1,17 +1,20 @@
 {
-    "name": "My app",
-    "background": { "scripts": ["background.js"] },
-    "version": "1.0",
-    "icons": {"48":"icon_48.png","128":"icon_128.png"},
-    "manifest_version": 2,
-    "description": "Do thing.",
-    "permissions": [
-        "tabs", "https://*/", "http://ajax.googleapis.com/"
-    ],
-    "content_scripts": [
+  "name": "Facebook Decrapifier",
+  "version": "0.1",
+  "manifest_version": 2,
+  "description": "Get rid of all that crap on your Facebook news feed and protect your account against Facebook jacking",
+  "icons": {"48":"icon_48.png","128":"icon_128.png"},
+  "options_page": "options.html",
+  "permissions": [
+    "storage", "tabs", "*://*/*"
+  ],
+  "background": {
+    "scripts": ["jquery.min.js","options.js"]
+  },
+  "content_scripts": [
         {
             "matches": ["https://*/*"],
-            "js": ["jquery.min.js", "myapp.js"],
+            "js": ["jquery.min.js", "decrapifier.js"],
             "run_at": "document_end"
         }
     ]

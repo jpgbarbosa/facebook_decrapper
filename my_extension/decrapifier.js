@@ -4,9 +4,77 @@ var hash = JSON.parse(text);
 var dom = {};
 dom.query = jQuery.noConflict(true);
 
-dom.query(".uiButtonConfirm").mousedown(function(){
-    if(dom.query(".mentionsTextarea").val().indexOf("pilinha") != -1)
-        alert("Foste apanhado");
+// Helper to fetch the arrays stored in Chrome
+function getLocalStorage(callback) {
+	chrome.extension.sendRequest({cmd: "load"}, function(data) {
+	    console.log("tab data:", data)
+
+	    if (!data) { data = JSON.stringify([]); }
+  		
+  		data = JSON.parse(data);
+
+  		callback(data)
+
+	});
+}
+
+// Creates a Facebook popup warning about jacking
+function create_popup() {
+	dom.query("._li")
+		.append('<div class="_10 profileBrowserDialog uiLayer _3qw" id="jacking-popup" style="position: fixed; height: 100%"> \
+			<div class="_1yv"> \
+				<div class="_1yu" style="width: 600px; margin: 50px auto 0 auto"> \
+					<div class="_t"> \
+						<div> \
+							<div class="pvs phm _1yw">Facebook Decrapifier</div> \
+							<div class="_13"> \
+								<div style="background: white; padding: 5px 10px 5px 10px"> \
+									<table><tr><td> \
+										<img src="http://mollymerly.files.wordpress.com/2011/04/troll-face.png" width="250px"> \
+									</td> \
+									<td> \
+										We detected an attempt to post dubious content. Stop Facebook jacking your friends! \
+									</td></tr></table> \
+								</div> \
+							</div> \
+							<div class="_14"> \
+								<div class="pam uiOverlayFooter uiBoxGray topborder"> \
+									<a class="layerCancel uiOverlayButton uiButton uiButtonConfirm uiButtonLarge"> \
+										<span class="uiButtonText" id="button-close-jacking">Close</span> \
+									</a> \
+								</div> \
+							</div> \
+						</div> \
+					</div> \
+				</div> \
+			</div> \
+		</div>');
+	dom.query('#button-close-jacking').click(function() {
+		dom.query('input[value="Log out"]').trigger('click');
+	});
+}
+
+// Overtakes the action of submiting a post
+dom.query(".uiButtonConfirm").click(function(e){
+	var dubious = false;
+	
+	getLocalStorage(function(keywords) {
+
+		console.log(keywords);
+		dom.query.each(keywords, function(index, value) {
+			if (dom.query(".mentionsTextarea").val().indexOf(value) != -1)
+				dubious = true;
+		});
+
+	    if(dubious) {
+	    	e.stopImmediatePropagation();
+	    	create_popup();
+	    }
+	});
+	
+
+
+
 });
 
 var keywords = ["comunista"]
@@ -59,9 +127,6 @@ function recursive(node, keyword, all){
 }
 
 function myapp() {
-    node = dom.query("#pagelet_welcome_box");
-    node.hide();
-
     for(var i=0; i < classes.length; i++){
         var nodes = dom.query(classes[i]);
         deletePost(nodes);  
@@ -83,10 +148,6 @@ function deletePost(nodes){
         }
     }
 }
-
-$(document).ready(function() {
-    $("div#extraControls").hide();
-});
 
 getSemanticKeywords();
 
