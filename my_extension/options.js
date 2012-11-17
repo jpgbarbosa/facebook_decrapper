@@ -71,7 +71,7 @@ dom.query(document).ready(function() {
 
 // Helper to remove keyword from the page and from storage
 function remove_keyword(type, value, id) {
-  var data = getLocalStorage(type+"_keywords");
+  var data = JSON.parse(getLocalStorage(type+"_keywords"));
   data = removeFromArray(value, data);
   setLocalStorage(type+"_keywords", data);
   dom.query('#'+type+'-remove-'+id).parent().parent().remove();
@@ -88,7 +88,7 @@ function show_keyword(type, value, id) {
 // Save list of keywords to block
 function save_block_keyword() {
   var block_keyword = dom.query('#block-keyword').val();
-  var data = getLocalStorage("block_keywords");
+  var data = JSON.parse(getLocalStorage("block_keywords"));
   data.push(block_keyword);
   var index = dom.query.inArray(block_keyword, data);
   setLocalStorage("block_keywords", data);
@@ -99,7 +99,7 @@ function save_block_keyword() {
 // Save list of keywords for jacking
 function save_jacking_keyword() {
   var jacking_keyword = dom.query('#jacking-keyword').val();
-  var data = getLocalStorage("jacking_keywords");
+  var data = JSON.parse(getLocalStorage("jacking_keywords"));
   data.push(jacking_keyword);
   console.log(data);
   var index = dom.query.inArray(jacking_keyword, data);
@@ -110,7 +110,7 @@ function save_jacking_keyword() {
 
 // Load list of keywords to block
 function restore_block_keywords() {
-  var data = getLocalStorage("block_keywords");
+  var data = JSON.parse(getLocalStorage("block_keywords"));
 
   dom.query.each(data, function(index, value) {
     show_keyword('block', value, index);
@@ -119,7 +119,7 @@ function restore_block_keywords() {
 
 // Load list of keywords for jacking
 function restore_jacking_keywords() {
-  var data = getLocalStorage("jacking_keywords");
+  var data = JSON.parse(getLocalStorage("jacking_keywords"));
 
   dom.query.each(data, function(index, value) {
     show_keyword('jacking', value, index);

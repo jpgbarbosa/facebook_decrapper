@@ -1,28 +1,30 @@
-var text = '{"politica":{"semantics":["politico, governo, politica"],"objects":{"party":{"semantics":["partido","sindicato"],"objects":{"PS":{"semantics":["PS","partido socialista"],"objects":{"people":{"objects":{"seguro":{"semantics":["antónio seguro","antónio josé seguro"]},"zorrinho":{"semantics":["vasco zorrinho"]},"ant_costa":{"semantics":["antónio costa"]}}}}},"PSD":{"semantics":["PSD","partido social democrata"],"objects":{"people":{"objects":{"pacos":{"semantics":["paços coelho"]},"relvas":{"semantics":["miguel relvas"]},"gaspar":{"semantics":["vitor gaspar"]}}}}},"CDS":{"semantics":["CDS","CDS/PP","PP","CDS PP","partido popular"],"objects":{"people":{"objects":{"portas":{"semantics":["paulo portas"]}}}}},"PC":{"semantics":["PC","partido comunista","comunista","comuna"],"objects":{"people":{"objects":{"jeronimo":{"semantics":["jeronimo de sousa"]}}}}},"BE":{"semantics":["BE","bloco de esquerda","comunista","comuna"],"objects":{"people":{"objects":{"louca":{"semantics":["francisco louça"]}}}}}}}}}}'
+var text = '{"politica":{"semantics":["politico","governo","politica"],"objects":{"party":{"semantics":["partido","sindicato"],"objects":{"PS":{"semantics":["ps","partido socialista"],"objects":{"people":{"objects":{"seguro":{"semantics":["antónio seguro","antónio josé seguro"]},"zorrinho":{"semantics":["vasco zorrinho"]},"ant_costa":{"semantics":["antónio costa"]}}}}},"PSD":{"semantics":["psd","partido social democrata"],"objects":{"people":{"objects":{"passos":{"semantics":["passos coelho","primeiro-ministro","primeiro ministro"]},"relvas":{"semantics":["miguel relvas"]},"gaspar":{"semantics":["vitor gaspar"]}}}}},"CDS":{"semantics":["cds","cds/pp","pp","cds pp","partido popular"],"objects":{"people":{"objects":{"portas":{"semantics":["paulo portas"]}}}}},"PC":{"semantics":["pcp","partido comunista","comunista","comuna"],"objects":{"people":{"objects":{"jeronimo":{"semantics":["jerónimo de sousa"]}}}}},"BE":{"semantics":["BE","bloco de esquerda","comunista","comuna"],"objects":{"people":{"objects":{"louca":{"semantics":["francisco louçã"]}}}}}}}}}}'
 var hash = JSON.parse(text);
 
 var dom = {};
 dom.query = jQuery.noConflict(true);
 
 var jacking_keywords = null;
+var keywords = null;
+var start = 0;
 
 // Helper to fetch the arrays stored in Chrome
-function getLocalStorage(name,callback) {
+// function getLocalStorage(name,callback) {
 
-	chrome.extension.sendMessage({cmd: "load", data : "jacking_keywords"}, function(val) {
+// 	chrome.extension.sendMessage({cmd: "load", data : "jacking_keywords"}, function(val) {
 
-        var x = null;
+//         var x = null;
 
-	    if (val == null || val == "undefined") { 
-            x =[] 
-        } else {
-            x = JSON.parse(val)
-        }
+// 	    if (val == null || val == "undefined") { 
+//             x =[] 
+//         } else {
+//             x = JSON.parse(val)
+//         }
 
-  		callback(x)
+//   		callback(x)
 
-	});
-}
+// 	});
+// }
 
 // Creates a Facebook popup warning about jacking
 function create_popup() {
@@ -73,10 +75,9 @@ dom.query(".uiButtonConfirm").click(function(e){
 
     if(dubious) {
 
-        dom.query(".uiTextareaAutogrow.input.mentionsTextarea.textInput").val("");
-
     	e.stopImmediatePropagation();
     	create_popup();
+        dom.query(".uiTextareaAutogrow.input.mentionsTextarea.textInput").val("");
         return false;
     }
 
@@ -84,7 +85,6 @@ dom.query(".uiButtonConfirm").click(function(e){
 
 });
 
-var keywords = ["comunista"]
 var semantic_keywords = []
 var classes  = [".userContent",".uiAttachmentTitle",".caption",".uiAttachmentDesc"]
 
@@ -106,6 +106,7 @@ function getSemanticKeywords() {
     for(var i in keywords){
         recursive(hash["politica"], keywords[i], 0);        
     }
+    start = 1;
 }
 
 function getJackinKeyWords() {
@@ -121,6 +122,22 @@ function getJackinKeyWords() {
 
         jacking_keywords = x ;
 
+    });
+}
+
+function getBlockKeyWords() {
+    chrome.extension.sendMessage({cmd: "load", data : "block_keywords"}, function(val) {
+
+        var x = null;
+
+        if (val == null || val == "undefined") { 
+            x =[] 
+        } else {
+            x = JSON.parse(val)
+        }
+
+        keywords = x ;
+        getSemanticKeywords();
     });
 }
 
@@ -157,24 +174,25 @@ function myapp() {
 };
 
 function deletePost(nodes){
-    // var words = keywords.concat(semantic_keywords); 
-    // for(var i = 0; i < nodes.length; i++) {
-    //     for(var j = 0; j < words.length; j++) {
-    //         if(removeAcento(nodes[i].innerHTML).toUpperCase().indexOf(removeAcento(words[j]).toUpperCase()) != -1) {
-    //             nodes[i].style.display = 'none';
-    //             var temp = nodes[i].parentNode;
-    //             while(temp.className.indexOf("uiUnifiedStory uiStreamStory genericStreamStory") == -1){
-    //                 temp.style.display = 'none';
-    //                 temp = temp.parentNode;
-    //             }
-    //         }
-    //     }
-    // }
+    var words = keywords.concat(semantic_keywords); 
+    for(var i = 0; i < nodes.length; i++) {
+        for(var j = 0; j < words.length; j++) {
+            if(removeAcento(nodes[i].innerHTML).toUpperCase().indexOf(removeAcento(words[j]).toUpperCase()) != -1) {
+                nodes[i].style.display = 'none';
+                var temp = nodes[i].parentNode;
+                while(temp.className.indexOf("uiUnifiedStory uiStreamStory genericStreamStory") == -1){
+                    temp.style.display = 'none';
+                    temp = temp.parentNode;
+                }
+            }
+        }
+    }
 }
 
-getSemanticKeywords();
+getBlockKeyWords();
 getJackinKeyWords();
 
 window.setInterval(function(){
-  myapp();
+  if(start == 1)
+    myapp();
 }, 1000);
